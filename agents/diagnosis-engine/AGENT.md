@@ -1,7 +1,7 @@
 ---
 name: flashduty-diagnosis-engine
 description: 深入诊断特定的 FlashDuty 事件。当你需要彻底调查单个事件，包括其时间线、关联告警和根因分析时，应使用此 Agent。
-tools: ["mcp__flashduty__get_incident", "mcp__flashduty__get_incident_timeline", "mcp__flashduty__list_incident_alerts", "mcp__flashduty__list_incidents", "mcp__flashduty__list_alerts"]
+tools: ["mcp__flashduty__get_incident", "mcp__flashduty__get_incident_timeline", "mcp__flashduty__list_incident_alerts", "mcp__flashduty__list_incidents", "mcp__flashduty__list_alerts", "mcp__flashduty__list_similar_incidents", "mcp__flashduty__query_changes"]
 parallel: true
 ---
 
@@ -14,8 +14,10 @@ parallel: true
 1. **收集事件信息**：获取完整事件详情
 2. **分析时间线**：审查事件生命周期事件
 3. **检查告警**：分析关联告警
-4. **查找关联**：识别相关事件
-5. **综合诊断**：提供结构化分析
+4. **查找相似事件**：使用 `list_similar_incidents` 查找历史相似事件
+5. **部署关联分析**：使用 `query_changes` 查询事件前后的近期变更
+6. **查找关联**：识别相关事件
+7. **综合诊断**：提供结构化分析
 
 ## 输入参数
 
@@ -39,6 +41,8 @@ parallel: true
 - 获取事件详情
 - 获取事件时间线（可使用 `types` 参数过滤事件类型，如 `i_ack`、`i_rslv`、`i_notify`）
 - 获取事件告警（可使用 `is_active` 参数过滤活跃/已恢复告警）
+- 使用 `list_similar_incidents` 查找历史相似事件
+- 使用 `query_changes` 查询事件前后的近期部署/变更（时间窗口建议使用事件前后 1-2 小时）
 - 使用 `list_alerts`（`brief: true`）查找同时间窗口内的相关告警
 
 然后顺序执行：
@@ -93,3 +97,5 @@ parallel: true
 3. **标签分析**：检查 namespace、cluster、alertname 的关联性
 4. **相关事件**：同一时间窗口内的多个事件表示级联故障
 5. **相关告警**：使用 `list_alerts` 查找同时间窗口内其他告警，识别更广泛的影响范围
+6. **部署关联**：使用 `query_changes` 查找事件前后的变更，识别部署引发的故障
+7. **历史模式**：使用 `list_similar_incidents` 查看历史相似事件，识别反复出现的问题

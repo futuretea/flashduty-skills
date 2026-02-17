@@ -1,6 +1,6 @@
 ---
 name: flashduty-team-collaboration
-description: This skill should be used when the user asks to "assign incident", "find team member", "query teams", "who is on call", "oncall schedule", "团队成员", "协作空间", "值班", "指派", "channels", "teams", "members", "escalation", or discusses incident assignment and team coordination.
+description: This skill should be used when the user asks to "assign incident", "find team member", "query teams", "who is on call", "oncall schedule", "escalation rules", "团队成员", "协作空间", "值班", "指派", "升级规则", "channels", "teams", "members", "escalation", or discusses incident assignment and team coordination.
 version: 3.0.0
 ---
 
@@ -32,7 +32,8 @@ version: 3.0.0
   "find_team": { "name": "SRE" },
   "get_oncall": { "team_id": "..." | "team_name": "..." },
   "resolve_channel": { "channel_id": "..." | "channel_name": "..." },
-  "suggest_assignee": { "incident_id": "...", "channel_id": "..." }
+  "suggest_assignee": { "incident_id": "...", "channel_id": "..." },
+  "get_escalation_rules": { "channel_id": "..." }
 }
 ```
 
@@ -62,7 +63,9 @@ version: 3.0.0
 - 查找人？ → `find_member`
 - 查找团队？ → `find_team`
 - 查看值班？ → `get_oncall`
+- 查询升级规则？ → `get_escalation_rules`
 - 需要帮助指派？ → `suggest_assignee`
+- 直接分配事件？ → 直接使用 `mcp__flashduty__assign_incident`
 
 ### 步骤 2：启动团队解析器
 ```
@@ -103,6 +106,22 @@ Task({
 用户：展示基础架构频道详情
 → 启动 resolver：{ resolve_channel: { channel_name: "基础架构" } }
 → 展示频道配置 + 升级规则
+```
+
+### 查询升级规则
+```
+用户：查看这个协作空间的升级策略
+→ 启动 resolver：{ get_escalation_rules: { channel_id: "..." } }
+→ 展示升级规则配置（升级层级、通知方式、超时时间）
+```
+
+### 直接分配事件
+```
+用户：把事件 FD123 分配给 John
+→ 查找 John 的 person_id
+→ 直接调用 mcp__flashduty__assign_incident
+   { incident_ids: ["FD123"], type: "assign", person_ids: [john_id] }
+→ 确认分配成功
 ```
 
 ## 多查询处理

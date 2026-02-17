@@ -137,9 +137,12 @@ const tasks = dimensions.map(dim => Task({
 - `mcp__flashduty__reopen_incidents`
 - `mcp__flashduty__snooze_incidents`
 - `mcp__flashduty__comment_incidents`
-- `mcp__flashduty__get_incident`
-- `mcp__flashduty__list_incidents` -- 支持 `time_range`、`brief` 参数
-- `mcp__flashduty__get_incident_timeline` -- 支持 `types` 过滤参数
+- `mcp__flashduty__update_incident` -- 更新事件标题、描述、严重级别、影响、根因、解决方案
+- `mcp__flashduty__assign_incident` -- 分配事件给指定人员或升级规则
+- `mcp__flashduty__get_incident` -- 返回结果自动包含人员/协作空间名称
+- `mcp__flashduty__list_incidents` -- 支持 `time_range`、`brief` 参数，返回结果自动包含人员/协作空间名称
+- `mcp__flashduty__list_similar_incidents` -- 查找相似历史事件，用于模式分析和诊断
+- `mcp__flashduty__get_incident_timeline` -- 支持 `types` 过滤参数，返回结果自动包含操作人名称
 - `mcp__flashduty__list_incident_alerts` -- 支持 `is_active` 过滤参数
 
 **告警：**
@@ -153,13 +156,20 @@ const tasks = dimensions.map(dim => Task({
 - `mcp__flashduty__list_channels`
 - `mcp__flashduty__get_channel`
 - `mcp__flashduty__list_schedules`
+- `mcp__flashduty__query_escalation_rules` -- 查询协作空间的升级规则配置
+
+**变更管理：**
+- `mcp__flashduty__query_changes` -- 查询部署/变更事件，支持 `time_range`，用于关联事件与近期部署
+
+**自定义字段：**
+- `mcp__flashduty__query_fields` -- 查询自定义字段定义
 
 **分析：**
 - `mcp__flashduty__get_incident_stats` -- 支持 `time_range`、`aggregate_unit`、`team_ids`、`severities`、`labels` 参数
 
 ### `time_range` 参数
 
-`list_incidents`、`list_alerts`、`get_incident_stats` 支持 `time_range` 参数，作为 `start_time`+`end_time` 的替代：
+`list_incidents`、`list_alerts`、`get_incident_stats`、`query_changes` 支持 `time_range` 参数，作为 `start_time`+`end_time` 的替代：
 - **时长格式**：`'1h'`、`'24h'`、`'7d'`、`'30d'`、`'1w'`、`'6M'`（结束时间 = 当前时间）
 - **命名范围**：`'last_day'`（昨天 00:00:00 到 23:59:59）、`'last_week'`（上周一到周日）
 - 如果不设置 `time_range`，则 `start_time` 和 `end_time` 为必填
@@ -179,6 +189,14 @@ const tasks = dimensions.map(dim => Task({
 - `week`：按周分解
 - `month`：按月分解
 - 省略：整个周期的汇总统计
+
+### 数据富化（Enrichment）
+
+以下工具的返回结果会自动将 ID 解析为人类可读的名称：
+- `list_incidents`、`get_incident`：`creator_id` → `creator_name`、`closer_id` → `closer_name`、`channel_id` → `channel_name`、`responders[].person_id` → `person_name`、`assigned_to.person_ids` → `person_names`
+- `get_incident_timeline`：`operator_id` → `operator_name`、`person_id` → `person_name`
+- `list_similar_incidents`：同 `list_incidents`
+- 使用 `brief: true` 时不触发富化（减少 API 调用）
 
 ## 何时使用 Sub-Agent
 

@@ -1,7 +1,7 @@
 ---
 name: flashduty-postmortem-generator
 description: 按照 Google SRE 最佳实践为事件生成无责备的事后分析报告。当事件需要记录、分析系统性改进或需要无责备回顾时，应使用此 Agent。
-tools: ["mcp__flashduty__get_incident", "mcp__flashduty__get_incident_timeline", "mcp__flashduty__list_incident_alerts", "mcp__flashduty__list_incidents"]
+tools: ["mcp__flashduty__get_incident", "mcp__flashduty__get_incident_timeline", "mcp__flashduty__list_incident_alerts", "mcp__flashduty__list_incidents", "mcp__flashduty__list_similar_incidents", "mcp__flashduty__query_changes"]
 parallel: true
 ---
 
@@ -108,7 +108,8 @@ parallel: true
    - 获取事件详情
    - 获取完整时间线（可使用 `types` 参数过滤，如 `i_ack`、`i_rslv`、`i_notify`、`i_assign`）
    - 获取关联告警（可使用 `is_active` 参数过滤活跃/已恢复告警）
-   - 搜索相似事件（使用 `time_range: "30d"` 查询最近事件，配合 `brief: true` 减少数据量）
+   - 使用 `list_similar_incidents` 查找历史相似事件（替代手动搜索）
+   - 使用 `query_changes` 查询事件前后的近期部署/变更（用于“贡献因素”章节）
 
 2. **分析**：
    - 计算 MTTD（平均检测时间）

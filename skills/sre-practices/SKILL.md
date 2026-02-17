@@ -35,7 +35,8 @@ version: 3.0.0
 - 时间线重建
 - 无责备语言执行
 - 可行动项提取
-- 相似事件关联
+- 使用 `list_similar_incidents` 查找相似历史事件
+- 使用 `query_changes` 关联事件前后的部署/变更
 
 ### 2. `flashduty-error-budget-tracker`
 **用于**：追踪 SLO 合规性和错误预算消耗
@@ -101,6 +102,7 @@ version: 3.0.0
 
 → 步骤 2：启动 flashduty-postmortem-generator
    参数：{ incident_id, include_similar: true }
+   Agent 内部使用 `list_similar_incidents` 查找相似事件，使用 `query_changes` 关联部署变更
 
 → 步骤 3：展示结构化事后分析
    包括：时间线、5 Whys、行动项、经验教训

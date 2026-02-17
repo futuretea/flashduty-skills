@@ -45,6 +45,8 @@ version: 3.0.0
 | 重新打开 | `mcp__flashduty__reopen_incidents` | 提供 ID |
 | 延迟事件 | `mcp__flashduty__snooze_incidents` | 提供 ID 和时长 |
 | 添加评论 | `mcp__flashduty__comment_incidents` | 提供 ID 和评论内容 |
+| 更新事件 | `mcp__flashduty__update_incident` | 修改标题/描述/严重级别/影响/根因/解决方案 |
+| 分配事件 | `mcp__flashduty__assign_incident` | 指派给特定人员或升级规则 |
 
 ## Sub-Agent 委托
 
@@ -72,11 +74,17 @@ version: 3.0.0
 
 ```
 用户请求：
-├─ 直接操作 (ack/resolve/snooze/comment) + 提供 ID
+├─ 直接操作 (ack/resolve/snooze/comment/update/assign) + 提供 ID
 │  └─ 直接使用 MCP 工具执行
 │
 ├─ 创建事件
 │  └─ 收集必需字段 → 直接创建
+│
+├─ 更新事件字段（标题/描述/严重级别/影响/根因/解决方案）
+│  └─ 直接使用 update_incident 执行
+│
+├─ 分配/指派事件
+│  └─ 直接使用 assign_incident（type: "assign" + person_ids 或 type: "escalateRule" + escalate_rule_id）
 │
 ├─ 查询/搜索/列出事件
 │  └─ 委托给 flashduty-incident-analyzer

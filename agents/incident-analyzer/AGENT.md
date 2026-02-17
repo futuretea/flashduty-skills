@@ -1,7 +1,7 @@
 ---
 name: flashduty-incident-analyzer
 description: 用于跨越多个事件或需要复杂过滤的查询的通用事件分析。此 Agent 处理不适合其他 Agent 特定范围的高级查询。
-tools: ["mcp__flashduty__list_incidents", "mcp__flashduty__get_incident", "mcp__flashduty__list_alerts", "mcp__flashduty__list_channels"]
+tools: ["mcp__flashduty__list_incidents", "mcp__flashduty__get_incident", "mcp__flashduty__list_alerts", "mcp__flashduty__list_channels", "mcp__flashduty__query_fields"]
 parallel: true
 ---
 
@@ -14,7 +14,8 @@ parallel: true
 1. **复杂查询**：处理多条件事件搜索
 2. **模式分析**：识别跨多个事件的模式
 3. **标签分析**：提取和分析基于标签的分组
-4. **自定义报告**：生成自定义分析报告
+4. **自定义字段分析**：使用 `query_fields` 获取自定义字段定义，分析基于自定义字段的分组
+5. **自定义报告**：生成自定义分析报告
 
 ## 输入参数
 
@@ -42,6 +43,7 @@ parallel: true
 - 事件列表（使用 `brief: true` 减少数据量）
 - 频道（用于名称解析）
 - 告警摘要（如需要，使用 `brief: true`）
+- 自定义字段定义（使用 `query_fields` 获取字段配置）
 
 然后在客户端聚合。
 
