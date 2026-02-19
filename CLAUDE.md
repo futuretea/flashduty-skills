@@ -16,13 +16,13 @@ flashduty-assistant/
 │   ├── marketplace.json                 # 插件市场元数据
 │   └── plugin.json                      # 插件元数据
 ├── agents/                              # Sub-Agent 定义
-│   ├── stats-collector/AGENT.md         # 聚合统计 Agent
-│   ├── diagnosis-engine/AGENT.md        # 事件诊断 Agent
-│   ├── team-resolver/AGENT.md           # 团队/值班解析 Agent
-│   ├── incident-analyzer/AGENT.md       # 复杂查询 Agent
-│   ├── postmortem-generator/AGENT.md    # 无责备事后分析 Agent (SRE)
-│   ├── error-budget-tracker/AGENT.md    # SLO/错误预算 Agent (SRE)
-│   └── toil-analyzer/AGENT.md           # 琐事分析 Agent (SRE)
+│   ├── stats-collector.md               # 聚合统计 Agent
+│   ├── diagnosis-engine.md              # 事件诊断 Agent
+│   ├── team-resolver.md                 # 团队/值班解析 Agent
+│   ├── incident-analyzer.md             # 复杂查询 Agent
+│   ├── postmortem-generator.md          # 无责备事后分析 Agent (SRE)
+│   ├── error-budget-tracker.md          # SLO/错误预算 Agent (SRE)
+│   └── toil-analyzer.md                 # 琐事分析 Agent (SRE)
 ├── skills/                              # Skill 触发器
 │   ├── incident-management/SKILL.md     # 事件生命周期操作
 │   ├── incident-diagnosis/SKILL.md      # 事件诊断
@@ -251,7 +251,7 @@ Task({
 
 ### 添加 Sub-Agent
 
-1. 创建 `agents/<agent-name>/AGENT.md`
+1. 创建 `agents/<agent-name>.md`
 2. 定义 Agent 名称、描述、工具、并行能力
 3. 记录输入/输出格式
 4. 从相关 Skill 引用

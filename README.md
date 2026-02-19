@@ -109,13 +109,13 @@ flashduty-assistant/
 │   ├── marketplace.json                 # 插件市场元数据
 │   └── plugin.json                      # 插件元数据
 ├── agents/                              # Sub-Agent 定义
-│   ├── stats-collector/AGENT.md         # 统计收集 Agent
-│   ├── diagnosis-engine/AGENT.md        # 诊断引擎 Agent
-│   ├── team-resolver/AGENT.md           # 团队解析 Agent
-│   ├── incident-analyzer/AGENT.md       # 通用分析 Agent
-│   ├── postmortem-generator/AGENT.md    # 事后分析 Agent (SRE)
-│   ├── error-budget-tracker/AGENT.md    # 错误预算 Agent (SRE)
-│   └── toil-analyzer/AGENT.md           # 琐事分析 Agent (SRE)
+│   ├── stats-collector.md               # 统计收集 Agent
+│   ├── diagnosis-engine.md              # 诊断引擎 Agent
+│   ├── team-resolver.md                 # 团队解析 Agent
+│   ├── incident-analyzer.md             # 通用分析 Agent
+│   ├── postmortem-generator.md          # 事后分析 Agent (SRE)
+│   ├── error-budget-tracker.md          # 错误预算 Agent (SRE)
+│   └── toil-analyzer.md                 # 琐事分析 Agent (SRE)
 ├── skills/                              # Skill 触发器
 │   ├── incident-management/SKILL.md
 │   ├── incident-diagnosis/SKILL.md
@@ -340,7 +340,7 @@ FlashDuty MCP 服务器的 `list_incidents`、`list_alerts`、`get_incident_stat
 
 ### 添加 Sub-Agent
 
-1. 创建 `agents/<agent-name>/AGENT.md`
+1. 创建 `agents/<agent-name>.md`
 2. 定义 agent 名称、工具集、并行能力
 3. 说明输入输出格式
 4. 从 skill 中引用
